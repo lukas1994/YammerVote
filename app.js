@@ -15,6 +15,8 @@ var Poll = mongoose.model('Poll');
 
 var app = express();
 
+app.use(express.static(__dirname + '/public'));
+
 var Yammer = new require('yammer').Yammer;
 
 var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
