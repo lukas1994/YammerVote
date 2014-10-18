@@ -13,12 +13,12 @@ var PollSchema = new mongoose.Schema({
     trim: true,
     required: 'No message text given (tried to create new message)'
   },
-  answer1: {
+  option1: {
     type: String,
     trim: true,
     required: 'Need two answers.'
   },
-  answer2: {
+  option2: {
     type: String,
     trim: true,
     required: 'Need two answers.'
@@ -30,7 +30,7 @@ var PollSchema = new mongoose.Schema({
   voted2: {
     type: Number,
     default: 0
-  }
+  },
   created: {
     type: Date,
     default: Date.now
