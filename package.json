@@ -1,0 +1,12 @@
+{
+    "name": "hello-world",
+    "description": "hello world test app",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "~4.2.0",
+        "mongoose": "~3.8.8",
+        "uuid": "~1.4.1",
+        "yammer": "0.1.0"
+    }
+}

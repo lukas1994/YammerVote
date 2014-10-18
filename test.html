@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#sign_up').submit(function(e) {
+    e.preventDefault();
+
+    $.get('http://localhost:3333/sign_up',
+      {
+        email: $('#email1').val(),
+        password: $('#password1').val()
+      }).always(
+      function(data) {
+        $('#result1').text(JSON.stringify(data));
+        $('.email').val($('#email1').val());
+        $('.password').val($('#password1').val());
+      }
+    );
+  });
+  $('#login').submit(function(e) {
+    e.preventDefault();
+
+    $.get('http://localhost:3333/login',
+      {
+        email: $('#email2').val(),
+        password: $('#password2').val()
+      },
+      function(data) {
+        $('.session').val(data.message);
+        $('.email').val($('#email2').val());
+      }
+    ).always(function(data) {
+      $('#result2').text(JSON.stringify(data));
+    });
+  });
+  $('#send').submit(function(e) {
+    e.preventDefault();
+
+    $.get('http://localhost:3333/send_message',
+      {
+        email: $('#email3').val(),
+        session_id: $('#session3').val(),
+        other_email: $('#other_email3').val(),
+        message: $('#message3').val()
+      }).always(
+        function(data) {
+          $('#result3').text(JSON.stringify(data));
+        }
+    );
+  });
+  $('#get').submit(function(e) {
+    e.preventDefault();
+
+    $.get('http://localhost:3333/get_messages',
+      {
+        email: $('#email4').val(),
+        session_id: $('#session4').val(),
+      }).always(
+        function(data) {
+          $('#result4').text(JSON.stringify(data));
+        }
+    );
+  });
+});
+</script>
+</head>
+
+<body>
+  <h1>SIGN UP</h1>
+  <form id="sign_up">
+    <label>email: </label>
+    <input type="text" id="email1" />
+    <label>password: </label>
+    <input type="password" id="password1" />
+    <input type="submit" />
+    <p id="result1" />
+  </form>
+
+  <h1>LOG IN</h1>
+  <form id="login">
+    <label>email: </label>
+    <input type="text" id="email2" class="email" />
+    <label>password: </label>
+    <input type="password" id="password2" class="password" />
+    <input type="submit" />
+    <p id="result2" />
+  </form>
+
+  <h1>SEND MESSAGE</h1>
+  <form id="send">
+    <label>email: </label>
+    <input type="text" id="email3" class="email" />
+    <label>session_id: </label>
+    <input type="text" id="session3" class="session" />
+    <label>other email: </label>
+    <input type="text" id="other_email3" />
+    <label>message: </label>
+    <input type="text" id="message3" />
+    <input type="submit" />
+    <p id="result3" />
+  </form>
+  <h1>GET MESSAGES</h1>
+  <form id="get">
+    <label>email: </label>
+    <input type="text" id="email4" class="email" />
+    <label>session_id: </label>
+    <input type="text" id="session4" class="session" />
+    <input type="submit" />
+    <p id="result4" />
+  </form>
+</body>
+
+</html>
