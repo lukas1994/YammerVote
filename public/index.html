@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+
+<!--JS-->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<!--CSS-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+
+<script>
+
+$('#add_question').submit(function(e) {
+  var question = $('#question_in').val();
+  var option1 = $('#option1_in').val();
+  var option2 = $('#option2_in').val();
+
+  $.ajax({
+    type: 'POST',
+    url: '/postpoll',
+    data: {
+      question: question,
+      option1: option1,
+      option2: option2
+    }
+  })
+  .done(function(res) {
+    alert('Answer: ' + res);
+  });
+
+  e.preventDefault();
+});
+
+var last_id = null;
+
+var getNewQuestion = function() {
+  $.ajax({
+    type: 'GET',
+    url: '/getpoll'
+  })
+  .done(function(res) {
+    last_id = res._id;
+    $('#question_out').html(res.question);
+    $('#option1_out').html(res.option1);
+    $('#option2_out').html(res.option2);
+  });
+};
+getNewQuestion();
+
+$('option1_in').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '/castvote',
+    data: {
+      id: last_id,
+      option1: true
+    }
+  });
+  getNewQuestion();
+});
+$('option2_in').click(function() {
+  $.ajax({
+    type: 'POST',
+    url: '/castvote',
+    data: {
+      id: last_id,
+      option2: true
+    }
+  });
+  getNewQuestion();
+});
+
+</script>
+
+</head>
+
+<body class="claro">
+
+<div class="row1">
+
+<form id="add_question">
+  Question: <input type="text" id="question_in"><br>
+
+  Option 1: <input type="text" width="50%" id="option1_in"><br>
+  Option 2: <input type="text" width="50%" id="option2_in"><br>
+
+  <input type="checkbox" id="public_in">public</input>
+
+</form>
+
+</div>
+
+<div class="row2">
+  <div id="question_out"></div><br>
+  <div id="option1_out" width="50%"></div>
+  <div id="option2_out" width="50%"></div>
+
+</div>
+
+</body>
+
+</html>
