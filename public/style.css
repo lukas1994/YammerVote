@@ -50,8 +50,26 @@ table {
 
 .main {
 	background: rgb(230,230,230);
-	height: 600px;
+	min-height: 600px;
 	padding-top: 60px;
+}
+
+.result-question {
+	font-family: 'Georgia', serif;
+	font-size: 1.4em;
+	margin-bottom: 10px;
+}
+
+.result {
+	width: 360px;
+	height: 360px;
+	text-align: center;
+	background: rgba(255,255,255,0.6);
+	padding: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 40px;
+	display: inline-block;
 }
 
 .header {

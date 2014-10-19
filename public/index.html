@@ -28,7 +28,7 @@ var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,k
 });
 
 $('.answer-tab').click(function(){
-  $('.question-interface').hide();
+  $('.question-interface, .results-interface').hide();
   $('.answer-interface').show();
 });
 
@@ -112,8 +112,8 @@ var getUserPolls = function() {
       return;
     }
     res.forEach(function(poll) {
-      var s = '<div>';
-      s += '<canvas id="_' + poll._id + '" width="400" height="400"></canvas>';
+      var s = '<div class="result"><span class="result-question">'+poll.question+'</span><br><br>';
+      s += '<canvas id="_' + poll._id + '" width="300" height="300"></canvas>';
       s += '</div>';
       $('#results').append(s);
 
