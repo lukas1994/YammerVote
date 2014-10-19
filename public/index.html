@@ -9,6 +9,7 @@
 <!--JS-->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="Chart.min.js"></script>
 
 <!--CSS-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -62,7 +63,8 @@ var last_id = null;
 var getNewQuestion = function() {
   $.ajax({
     type: 'GET',
-    url: '/getpoll'
+    url: '/getpoll',
+    data: {user_id: unescape(vars.name)}
   })
   .done(function(res) {
     console.log(res);
@@ -84,6 +86,43 @@ var getNewQuestion = function() {
   });
 };
 getNewQuestion();
+
+var getUserPolls = function() {
+  $.ajax({
+    type: 'GET',
+    url: '/userpolls',
+    data: {user_id: unescape(vars.name)}
+  })
+  .done(function(res) {
+    console.log(res);
+    if(!res){
+      return;
+    }
+    res.forEach(function(poll) {
+      var s = '<div>';
+      s += '<canvas id="_' + poll._id + '" width="400" height="400"></canvas>';
+      s += '</div>';
+      $('#results').append(s);
+
+      var data = {
+        labels: [poll.option1, poll.option2],
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                highlightFill: "rgba(220,220,220,0.75)",
+                highlightStroke: "rgba(220,220,220,1)",
+                data: [poll.vote1, poll.vote2]
+            }
+        ]
+      };
+      var ctx = $("#_" + _id).get(0).getContext("2d");
+      var myBarChart = new Chart(ctx).Bar(data/*, options*/);
+    });
+    console.log(res);
+  });
+};
 
 $('#option1_out').click(function() {
   console.log('cast');
@@ -143,6 +182,10 @@ $('#option2_out').click(function() {
   <div id="option2_out" width="50%" height="200px"></div>
 
 </div>
+
+</div>
+
+<div id="results">
 
 </div>
 
