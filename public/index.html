@@ -25,6 +25,7 @@ var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,k
 
 if (('name' in vars) && ('network' in vars)) {
   $('#login').hide();
+  $('#username').html(unescape(vars.name));
   console.log('hide login');
 }
 else {
@@ -45,11 +46,12 @@ $('#add_question').submit(function(e) {
       question: question,
       option1: option1,
       option2: option2,
-      group: isPublic
+      group: isPublic,
+      user: unescape(vars.name)
     }
   })
   .done(function(res) {
-    alert('Answer: ' + res);
+    location.reload();
   });
 
   e.preventDefault();
@@ -63,10 +65,22 @@ var getNewQuestion = function() {
     url: '/getpoll'
   })
   .done(function(res) {
+    console.log(res);
+    if(!res){
+      return;
+      }
     last_id = res._id;
     $('#question_out').html(res.question);
-    $('#option1_out').html(res.option1);
-    $('#option2_out').html(res.option2);
+    if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(res.option1)){
+      $('#option1_out').html("<img src = '" + res.option1  + "'></img>");
+    } else {
+      $('#option1_out').html(res.option1);
+    }
+    if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(res.option1)){
+      $('#option2_out').html("<img src = '" + res.option2 + "'></img>");
+    } else {
+      $('#option2_out').html(res.option2);
+    }
   });
 };
 getNewQuestion();
@@ -109,6 +123,7 @@ $('#option2_out').click(function() {
 </div>
 
 <div id="main">
+<p>Welcome</p> <p id = "username"></p>
 
 <form id="add_question">
   Question: <input type="text" id="question_in"><br>
