@@ -97,7 +97,7 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
    if (!('group' in req.query)) {
      req.query.group = '';
    }
-   Poll.findOneRandom(/*{user_id: {$ne: req.query.user_id}},*/function(err, poll){
+   Poll.findOneRandom({user_id: {$ne: req.query.user_id}}, function(err, poll){
      if (err) {
    		console.log(err);
    	  }

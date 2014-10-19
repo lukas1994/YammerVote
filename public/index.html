@@ -94,7 +94,6 @@ var getUserPolls = function() {
     data: {user_id: unescape(vars.name)}
   })
   .done(function(res) {
-    console.log(res);
     if(!res){
       return;
     }
@@ -113,16 +112,17 @@ var getUserPolls = function() {
                 strokeColor: "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(220,220,220,0.75)",
                 highlightStroke: "rgba(220,220,220,1)",
-                data: [poll.vote1, poll.vote2]
+                data: [poll.votes1, poll.voted2]
             }
         ]
       };
-      var ctx = $("#_" + _id).get(0).getContext("2d");
+      var ctx = $("#_" + poll._id).get(0).getContext("2d");
       var myBarChart = new Chart(ctx).Bar(data/*, options*/);
     });
-    console.log(res);
+
   });
 };
+getUserPolls();
 
 $('#option1_out').click(function() {
   console.log('cast');
@@ -184,6 +184,8 @@ $('#option2_out').click(function() {
 </div>
 
 </div>
+
+<hr>
 
 <div id="results">
 
