@@ -88,12 +88,12 @@ var getNewQuestion = function() {
     last_id = res._id;
     $('#question_out').html(res.question);
     if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(res.option1)){
-      $('#option1_out').html("<img src = '" + res.option1  + "'></img>");
+      $('#option1_out').html("<img width='80%' src='" + res.option1  + "'>");
     } else {
       $('#option1_out').html(res.option1);
     }
     if (/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(res.option1)){
-      $('#option2_out').html("<img src = '" + res.option2 + "'></img>");
+      $('#option2_out').html("<img width='80%' src='" + res.option2 + "'>");
     } else {
       $('#option2_out').html(res.option2);
     }

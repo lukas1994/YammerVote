@@ -72,6 +72,10 @@ table {
 	display: inline-block;
 }
 
+.option_out img {
+	margin-bottom: 25px;
+}
+
 .header {
 	padding-top: 35px;
 	padding-bottom: 35px;
