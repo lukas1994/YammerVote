@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	font-family: 'Open Sans', sans-serif;
 }
 ol, ul {
 	list-style: none;
@@ -45,5 +46,142 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.main {
+	background: rgb(230,230,230);
+	height: 600px;
+	padding-top: 60px;
+}
+
+.header {
+	padding-top: 35px;
+	padding-bottom: 35px;
+	text-align: center;
+}
+
+.main-col {
+	padding-left: 80px;
+}
+
+#question_in {
+	width: 80%;
+	height: 60px;
+	padding-left: 30px;
+	font-family: 'Georgia', serif;
+	font-size: 1.4em;
+	border: 0;
+	margin-bottom: 20px;
+}
+
+#public_in {
+	margin-left: 30px;
+	margin-right: 10px;
+	font-size: 2em;
+}
+
+.add {
+	margin-top: 20px;
+	height: 45px;
+	width: 160px;
+	border: 0;
+	color: black;
+	font-size: 1.2em;
+	letter-spacing: -1px;
+	background: rgb(180,180,180);
+}
+
+.add:hover {
+	background: rgb(160,160,160);
+}
+
+.make-public {
+	font-size: 0.8em;
+}
+
+hr {
+	border-top: 1px solid rgba(0,0,0,0.2);
+	margin: 0;
+	width: 80%;
+	margin-bottom: 20px;
+}
+
+.option_in {
+	width: 60%;
+	height: 50px;
+	padding-left: 30px;
+	font-family: 'Georgia', serif;
+	font-size: 1.1em;
+	border: 0;
+	margin-bottom: 10px;
+}
+
+.welcome {
+	font-size: 2.6em;
+	line-height: 120%;
+	font-weight: 300;
+	-webkit-font-smoothing: antialiased;
+	letter-spacing: -1px;
+}
+
+.option_out {
+	display: inline-block;
+	width: 40%;
+	height: auto;
+	min-height: 100px;
+	padding-top: 37px;
+	font-size: 1.45em;
+	text-align: center;
+	font-family: 'Georgia', serif;
+	margin-right: 40px;
+	background: rgb(250,250,250);
+	cursor: pointer;
+}
+
+.option_out:hover {
+	background: rgb(190,190,190);
+}
+
+#question_out {
+	font-family: 'Georgia', serif;
+	-webkit-font-smoothing: antialiased;
+	font-size: 2.4em;
+	margin-bottom: 20px;
+	letter-spacing: -1px;
+	color: rgb(30,30,30);
+}
+
+.tab-button {
+	width: 140px;
+	background: white;
+	padding: 15px;
+	display: inline-block;
+	text-align: center;
+	margin-top: 20px;
+	margin-right: 20px;
+	cursor: pointer;
+	font-weight: 400;
+}
+
+.tab-button:hover {
+	background: rgb(140,140,140);
+	color: white;
+}
+
+.welcome-col {
+	border-right: 1px solid rgba(0,0,0,0.3);
+	height: 320px;
+}
+
+.welcome-text {
+	margin-top: 10px;
+	line-height: 150%;
+	font-size: 1.1em;
+	padding-right: 50px;
+	font-weight: 300;
+}
+
+#username {
+	font-weight: 400;
 }
 

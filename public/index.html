@@ -14,14 +14,22 @@
 <!--CSS-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="style.css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,600,400' rel='stylesheet' type='text/css'>
 
 <script>
 
 $(function() {
 
+$('.answer-interface, .results-interface').hide();
+
 var vars = {};
 var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
   vars[key] = value;
+});
+
+$('.answer-tab').click(function(){
+  $('.question-interface').hide();
+  $('.answer-interface').show();
 });
 
 if (('name' in vars) && ('network' in vars)) {
@@ -156,36 +164,68 @@ $('#option2_out').click(function() {
 
 <body class="claro">
 
+<div class="row header">
+
+  <img src="logo.png">
+
+</div>
+
+<div class="row main">
+
 <div id="login">
   <a href = "https://www.yammer.com/dialog/oauth?client_id=duMqFN8SOor3eIF7to3sg&redirect_uri=http://localhost:3333/redirect">Login</a>
 
 </div>
 
 <div id="main">
-<p>Welcome</p> <p id = "username"></p>
 
+<div class="col-md-1"></div>
+
+<div class="col-md-3  welcome-col">
+<div class="welcome">Welcome</p> <p id = "username"></p></div>
+<div class="welcome-text">Use the form on the right to create a new anonymous poll, or click below to do other stuff.</div>
+
+<div class="tab-button answer-tab">Answer Polls</div> 
+<div class="tab-button results-tab">View Results</div>
+
+</div>
+
+<div class="col-md-7 main-col">
+
+<span class="question-interface">
 <form id="add_question">
-  Question: <input type="text" id="question_in"><br>
+  <input type="text" placeholder="Question" id="question_in"><hr>
 
-  Option 1: <input type="text" width="50%" id="option1_in"><br>
-  Option 2: <input type="text" width="50%" id="option2_in"><br>
+  <input type="text" width="50%" placeholder="Option 1" class="option_in" id="option1_in"><br>
+  <input type="text" width="50%" placeholder="Option 2" class="option_in" id="option2_in"><br>
 
-  <input type="checkbox" id="public_in">public</input>
+  <input type="checkbox" id="public_in"></input> <span class="make-public">Make Public</span><br>
 
-  <input type="submit">
+  <input type="submit" class="add">
 
 </form>
 
-<div class="row2">
+</span>
+
+<span class="answer-interface">
+
   <div id="question_out"></div><br>
-  <div id="option1_out" width="50%" height="200px"></div>
-  <div id="option2_out" width="50%" height="200px"></div>
+  <div id="option1_out" class="option_out" width="50%" height="200px"></div>
+  <div id="option2_out" class="option_out" width="50%" height="200px"></div>
+
+</span>
 
 </div>
 
-</div>
+<span class="results-interface">
 
 <div id="results">
+
+</div>
+
+</span>
+
+</div>
 
 </div>
 
