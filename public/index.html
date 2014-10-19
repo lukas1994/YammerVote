@@ -17,6 +17,21 @@
 <script>
 
 $(function() {
+
+var vars = {};
+var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+  vars[key] = value;
+});
+
+if (('name' in vars) && ('network' in vars)) {
+  $('#login').hide();
+  console.log('hide login');
+}
+else {
+  $('#main').hide();
+  console.log('hide main');
+}
+
 $('#add_question').submit(function(e) {
   var question = $('#question_in').val();
   var option1 = $('#option1_in').val();
@@ -88,9 +103,12 @@ $('#option2_out').click(function() {
 
 <body class="claro">
 
-<a href = "https://www.yammer.com/dialog/oauth?client_id=duMqFN8SOor3eIF7to3sg&redirect_uri=http://localhost:3333/redirect">Login</a>
+<div id="login">
+  <a href = "https://www.yammer.com/dialog/oauth?client_id=duMqFN8SOor3eIF7to3sg&redirect_uri=http://localhost:3333/redirect">Login</a>
 
-<div class="row1">
+</div>
+
+<div id="main">
 
 <form id="add_question">
   Question: <input type="text" id="question_in"><br>
@@ -104,12 +122,12 @@ $('#option2_out').click(function() {
 
 </form>
 
-</div>
-
 <div class="row2">
   <div id="question_out"></div><br>
   <div id="option1_out" width="50%" height="200px"></div>
   <div id="option2_out" width="50%" height="200px"></div>
+
+</div>
 
 </div>
 
