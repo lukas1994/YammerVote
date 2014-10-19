@@ -2,7 +2,7 @@
 
 var express = require('express');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/yammervote')
+mongoose.connect('mongodb://localhost/yammervote2')
 var uuid = require('uuid');
 
 require('./poll_schema');
@@ -45,9 +45,12 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
  app.get('/votes')
 
  app.get('/castvote', function(req, res){
-   poll_id = req.query.id
+ 	console.log(req.query.id);
    if (req.query.option1) {
-     Poll.update({"_id": req.query.id}, { $inc: {votes1: 1}});
+   	console.log('in');
+     Poll.update({"_id": req.query.id}, { $inc: {votes1: 1}}, {}, function(test) {
+     	console.log(test);
+     });
    } else {
      Poll.update({"_id": req.query.id}, { $inc: {votes2: 1}});
    }
@@ -62,10 +65,17 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
  }); */
 
  app.get('/getpoll', function(req, res){
-   Poll.count({$or: [{group: res.query.group}, {group: ""}]}, function(err, count){
-     Poll.findOne({$or: [{group: res.query.group}, {group: ""}]}, {skip: count*Math.random()}, function(err, poll){
-     });
-   })
+   if (!('group' in req.query)) {
+     req.query.group = '';
+   }
+   Poll.findOneRandom(function(err, poll){
+     if (err) {
+   		console.log(err);
+   	  }
+      return res.jsonp(poll);
+   });
+
+
  });
 
  app.get('/postpoll', function(req, res){

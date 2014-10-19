@@ -1,6 +1,7 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+random = require('mongoose-simple-random');
 
 var PollSchema = new mongoose.Schema({
   group: {
@@ -36,5 +37,7 @@ var PollSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+PollSchema.plugin(random);
 
 mongoose.model('Poll', PollSchema);
