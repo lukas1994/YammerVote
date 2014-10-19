@@ -8,6 +8,10 @@ var PollSchema = new mongoose.Schema({
     trim: true,
     required: 'Poll must belong to a group.'
   },
+  user_id: {
+    type: String,
+    required: 'Poll needs an id'
+  },
   question: {
     type: String,
     trim: true,

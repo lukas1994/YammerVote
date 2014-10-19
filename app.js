@@ -40,10 +40,13 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
   console.log(body.messages)});
  });
 
- app.get('/votes')
+ app.get('/votes', function(req, res){
+   poll = Poll.findOne({_id = req.query.id});
+   (poll.votes1,
+     poll.votes2);
+ });
 
  app.get('/castvote', function(req, res){
-   poll_id = req.query.id
    if (req.query.option1) {
      Poll.update({"_id": req.query.id}, { $inc: {votes1: 1}});
    } else {
@@ -59,6 +62,14 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
    });
  }); */
 
+ app.get('/userpolls', function(req, res){
+   Poll.find({user_id: req.query.user_id}, function(err, data){
+     return res.jsonp(
+       data
+     );
+   });
+ });
+
  app.get('/getpoll', function(req, res){
    Poll.count({$or: [{group: res.query.group}, {group: ""}]}, function(err, count){
      Poll.findOne({$or: [{group: res.query.group}, {group: ""}]}, {skip: count*Math.random()}, function(err, poll){
@@ -71,11 +82,13 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
    var question = req.query.question;
    var answer1 = req.query.option1;
    var answer2 = req.query.option2;
+   var user_id = req.query.user_id
    var poll = new Poll();
    poll.group = group;
    poll.question = question;
    poll.option1 = answer1;
    poll.option2 = answer2;
+   poll.user_id = user_id;
    poll.save(function(err){
      if (err) {
        return res.send(400, err);
