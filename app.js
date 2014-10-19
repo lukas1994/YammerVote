@@ -4,6 +4,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/yammervote2')
 var uuid = require('uuid');
+var request = require('request');
 
 require('./poll_schema');
 
@@ -43,7 +44,7 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
  });
 
  app.get('/votes', function(req, res){
-   poll = Poll.findOne({_id = req.query.id});
+   poll = Poll.findOne({_id: req.query.id});
    (poll.votes1,
      poll.votes2);
  });
@@ -72,6 +73,25 @@ var yam = new Yammer({ access_token: "M0OrJhe9QWxYMCkATSkvNA"});
      return res.jsonp(
        data
      );
+   });
+ });
+
+ app.get('/redirect', function(req, res){
+   var code = req.query.code;
+   var url = "https://www.yammer.com/oauth2/access_token.json?client_id=duMqFN8SOor3eIF7to3sg&client_secret=L4CpyUXXaNQUtfssq3ucljsbpwtkwLjmsKYLk2DpKRA&code=" + code;
+   request({
+     url: url,
+     json: true
+   }, function (error, response, body) {
+     if (error) {
+       console.log(error);
+       return;
+     }
+     console.log(body);
+     console.log(typeof(body));
+     var name = body.user.full_name;
+     var network = body.user.network_name;
+     res.redirect("/?name="+name+"&network="+network);
    });
  });
 
